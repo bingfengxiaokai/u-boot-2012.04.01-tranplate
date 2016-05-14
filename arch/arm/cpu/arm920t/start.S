@@ -167,11 +167,13 @@ copyex:
 	str	r1, [r0]
 # endif
 
+#if 0
 	/* FCLK:HCLK:PCLK = 1:2:4 */
 	/* default FCLK is 120 MHz ! */
 	ldr	r0, =CLKDIVN
 	mov	r1, #3
 	str	r1, [r0]
+#endif
 #endif	/* CONFIG_S3C24X0 */
 
 	/*
