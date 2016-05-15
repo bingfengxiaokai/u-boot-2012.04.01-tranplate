@@ -39,12 +39,13 @@
 #define CONFIG_S3C2440		/* specifically a SAMSUNG S3C2440 SoC */
 #define CONFIG_SMDK2410		/* on a SAMSUNG SMDK2410 Board */
 
-#define CONFIG_SYS_TEXT_BASE	0x0
+#define CONFIG_SYS_TEXT_BASE	0x33F00000
 
 #define CONFIG_SYS_ARM_CACHE_WRITETHROUGH
 
 /* input clock of PLL (the SMDK2410 has 12MHz input clock) */
 #define CONFIG_SYS_CLK_FREQ	12000000
+//#define CONFIG_USER_CONFIG_CLK_IN_SOUR
 
 #undef CONFIG_USE_IRQ		/* we don't need IRQ/FIQ stuff */
 
@@ -224,7 +225,7 @@
 #define CONFIG_CMD_MTDPARTS
 #define CONFIG_MTD_DEVICE
 #define CONFIG_MTD_PARTITIONS
-#define CONFIG_YAFFS2
+//#define CONFIG_YAFFS2
 #define CONFIG_RBTREE
 
 /* additions for new relocation code, must be added to all boards */

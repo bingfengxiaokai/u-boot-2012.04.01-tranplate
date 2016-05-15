@@ -256,7 +256,7 @@ init_fnc_t *init_sequence[] = {
 	NULL,
 };
 
-void board_init_f(ulong bootflag)
+unsigned int board_init_f(ulong bootflag)
 {
 	bd_t *bd;
 	init_fnc_t **init_fnc_ptr;
@@ -322,6 +322,7 @@ void board_init_f(ulong bootflag)
 
 	addr = CONFIG_SYS_SDRAM_BASE + gd->ram_size;
 
+#if 0
 #ifdef CONFIG_LOGBUFFER
 #ifndef CONFIG_ALT_LB_ADDR
 	/* reserve kernel log buffer */
@@ -373,6 +374,9 @@ void board_init_f(ulong bootflag)
 	addr &= ~(4096 - 1);
 
 	debug("Reserving %ldk for U-Boot at: %08lx\n", gd->mon_len >> 10, addr);
+#endif
+
+	addr = CONFIG_SYS_TEXT_BASE;
 
 #ifndef CONFIG_SPL_BUILD
 	/*
@@ -435,9 +439,11 @@ void board_init_f(ulong bootflag)
 	debug("relocation Offset is: %08lx\n", gd->reloc_off);
 	memcpy(id, (void *)gd, sizeof(gd_t));
 
-	relocate_code(addr_sp, id, addr);
+	//relocate_code(addr_sp, id, addr);
 
 	/* NOTREACHED - relocate_code() does not return */
+
+	return (unsigned int)id;
 }
 
 #if !defined(CONFIG_SYS_NO_FLASH)

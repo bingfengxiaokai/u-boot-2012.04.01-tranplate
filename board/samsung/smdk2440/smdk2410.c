@@ -63,6 +63,7 @@ static inline void pll_delay(unsigned long loops)
 	  "bne 1b":"=r" (loops):"0" (loops));
 }
 
+#ifdef CONFIG_USER_CONFIG_CLK_IN_SOUR
 /*
  * Miscellaneous platform dependent initialisations
  */
@@ -88,13 +89,16 @@ static inline void pll_delay(unsigned long loops)
 #define S3C2440_MPLL_399MHz     		((0x6e<<12)|(0x03<<4)|(0x01))
 #define S3C2440_UPLL_48MHZ_Fin16MHz		((60<<12)|(4<<4)|(2))
 
-
+#endif
 
 int board_early_init_f(void)
 {
+	struct s3c24x0_gpio * const gpio = s3c24x0_get_base_gpio();
+
+#ifdef CONFIG_USER_CONFIG_CLK_IN_SOUR //this have move to clock_init 
 	struct s3c24x0_clock_power * const clk_power =
 					s3c24x0_get_base_clock_power();
-	struct s3c24x0_gpio * const gpio = s3c24x0_get_base_gpio();
+
 
 		/* FCLK:HCLK:PCLK = ?:?:? */
 #if CONFIG_133MHZ_SDRAM
@@ -127,7 +131,7 @@ int board_early_init_f(void)
 	//	clk_power->MPLLCON = S3C2440_MPLL_399MHz;		//fin=16.934MHz
 		/* some delay between MPLL and UPLL */
 		udelay (8000);
-
+#endif
 #if 0
 	/* to reduce PLL lock time, adjust the LOCKTIME register */
 	writel(0xFFFFFF, &clk_power->locktime);

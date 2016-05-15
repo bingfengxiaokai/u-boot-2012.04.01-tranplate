@@ -745,7 +745,7 @@ clean:
 	@rm -f $(TIMESTAMP_FILE) $(VERSION_FILE)
 	@find $(OBJTREE) -type f \
 		\( -name 'core' -o -name '*.bak' -o -name '*~' -o -name '*.su' \
-		-o -name '*.o'	-o -name '*.a' -o -name '*.exe'	\) -print \
+		-o -name '*.o'	-o -name '*.a' -o -name '*.exe'	-o -name '*.dis' \) -print \
 		| xargs rm -f
 
 # Removes everything not needed for testing u-boot
@@ -755,6 +755,7 @@ tidy:	clean
 clobber:	tidy
 	@find $(OBJTREE) -type f \( -name '*.srec' \
 		-o -name '*.bin' -o -name u-boot.img \) \
+		-o -name u-boot.dis \
 		-print0 | xargs -0 rm -f
 	@rm -f $(OBJS) $(obj)*.bak $(obj)ctags $(obj)etags $(obj)TAGS \
 		$(obj)cscope.* $(obj)*.*~

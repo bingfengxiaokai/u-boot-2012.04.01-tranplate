@@ -167,13 +167,11 @@ copyex:
 	str	r1, [r0]
 # endif
 
-#if 0
 	/* FCLK:HCLK:PCLK = 1:2:4 */
 	/* default FCLK is 120 MHz ! */
 	ldr	r0, =CLKDIVN
 	mov	r1, #3
 	str	r1, [r0]
-#endif
 #endif	/* CONFIG_S3C24X0 */
 
 	/*
@@ -183,16 +181,41 @@ copyex:
 #ifndef CONFIG_SKIP_LOWLEVEL_INIT
 	bl	cpu_init_crit
 #endif
-
-/* Set stackpointer in internal RAM to call board_init_f */
-call_board_init_f:
 	ldr	sp, =(CONFIG_SYS_INIT_SP_ADDR)
 	bic	sp, sp, #7 /* 8-byte alignment for ABI compliance */
+	
+    bl clock_init
+
+//	bl nand_init_ll
+	mov r0, #0
+	ldr r1, _TEXT_BASE
+	ldr  r2, _bss_start_ofs
+	bl CopyCode2Ram
+
+clear_bss:
+	ldr	r0, =__bss_start
+	ldr	r1, =__bss_end__
+	mov	r2, #0x00000000		/* clear			    */
+
+clbss_l:
+	str	r2, [r0]		/* clear loop...		    */
+	add	r0, r0, #4
+	cmp	r0, r1
+	bne	clbss_l
+
+	ldr pc, =call_board_init_f
+/* Set stackpointer in internal RAM to call board_init_f */
+call_board_init_f:
 	ldr	r0,=0x00000000
 	bl	board_init_f
 
+	ldr r1, _TEXT_BASE
+	bl  board_init_r
+
+
 /*------------------------------------------------------------------------------*/
 
+#if 0
 /*
  * void relocate_code (addr_sp, gd, addr_moni)
  *
@@ -314,6 +337,7 @@ _rel_dyn_end_ofs:
 _dynsym_start_ofs:
 	.word __dynsym_start - _start
 
+#endif
 /*
  *************************************************************************
  *
