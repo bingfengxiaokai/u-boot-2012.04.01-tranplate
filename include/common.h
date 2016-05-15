@@ -273,7 +273,7 @@ int	abortboot(int bootdelay);
 extern char console_buffer[];
 
 /* arch/$(ARCH)/lib/board.c */
-unsigned int board_init_f  (ulong);
+void	board_init_f  (ulong) __attribute__ ((noreturn));
 void	board_init_r  (gd_t *, ulong) __attribute__ ((noreturn));
 int	checkboard    (void);
 int	checkflash    (void);
@@ -470,6 +470,8 @@ void	dcache_enable (void);
 void	dcache_disable(void);
 void	mmu_disable(void);
 void	relocate_code (ulong, gd_t *, ulong) __attribute__ ((noreturn));
+void	set_sp_f (gd_t *, ulong) __attribute__ ((noreturn));
+
 ulong	get_endaddr   (void);
 void	trap_init     (ulong);
 #if defined (CONFIG_4xx)	|| \

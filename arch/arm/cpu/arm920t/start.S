@@ -110,6 +110,7 @@ FIQ_STACK_START:
 IRQ_STACK_START_IN:
 	.word	0x0badc0de
 
+
 /*
  * the actual start code
  */
@@ -209,10 +210,12 @@ call_board_init_f:
 	ldr	r0,=0x00000000
 	bl	board_init_f
 
+.globl	set_sp_f
+set_sp_f:
+	mov sp, r1
 	ldr r1, _TEXT_BASE
-	bl  board_init_r
-
-
+	bl board_init_r
+	
 /*------------------------------------------------------------------------------*/
 
 #if 0
