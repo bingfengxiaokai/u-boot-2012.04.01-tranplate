@@ -83,6 +83,8 @@
 
 /* EON */
 #define EN29LV040A	0x004F
+#define EN29LV16088	0x2249
+
 
 /*
  * Unlock address sets for AMD command sets.
@@ -367,6 +369,25 @@ static const struct amd_flash_info jedec_table[] = {
 		}
 	},
 #endif
+
+	{
+		.mfr_id 	= ((u16)EON_MANUFACT & 0xFF),
+		.dev_id 	= EN29LV16088,
+		.name		= "EON EN29LV16088",
+		.uaddr		= {
+			[1] = MTD_UADDR_0x0555_0x02AA /* x16 */
+		},
+		.DevSize	= SIZE_2MiB,
+		.CmdSet 	= P_ID_AMD_STD,
+		.NumEraseRegions= 4,
+		.regions	= {
+			ERASEINFO(16*1024, 1),
+			ERASEINFO(8*1024,  2),
+			ERASEINFO(32*1024, 1),
+			ERASEINFO(64*1024, 31),
+		}
+	},
+
 };
 
 static inline void fill_info(flash_info_t *info, const struct amd_flash_info *jedec_entry, ulong base)
