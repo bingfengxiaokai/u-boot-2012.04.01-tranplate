@@ -96,7 +96,7 @@
 #define B4_Tacs			0x0	/*  0clk */
 #define B4_Tcos			0x0	/*  0clk */
 #define B4_Tacc			0x7	/* 14clk */
-#define B4_Tcoh			0x0	/*  0clk */
+#define B4_Tcoh			0x1	/*  0clk */
 #define B4_Tah			0x0	/*  0clk */
 #define B4_Tacp			0x0
 #define B4_PMC			0x0	/* normal */
