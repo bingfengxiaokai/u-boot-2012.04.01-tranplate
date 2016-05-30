@@ -616,6 +616,10 @@ void board_init_r(gd_t *id, ulong dest_addr)
 	board_late_init();
 #endif
 
+#ifdef CONFIG_CMD_MTDPARTS
+	run_command("mtdparts default", 0);
+#endif
+
 #ifdef CONFIG_BITBANGMII
 	bb_miiphy_init();
 #endif

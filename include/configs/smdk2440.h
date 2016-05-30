@@ -74,18 +74,25 @@
 #define CONFIG_S3C24X0_SERIAL
 #define CONFIG_SERIAL1		1	/* we use SERIAL 1 on SMDK2410 */
 
+#define CONFIG_MTD_DEVICE
+#define CONFIG_CMD_MTDPARTS
+#define MTDIDS_DEFAULT			"nand0=tq2440-0"
+#define MTDPARTS_DEFAULT		"mtdparts=tq2440-0:256k(uboot)," \
+								"128k(params),"\
+								"2m(kernel),"\
+								"-(rootfs)"
 /************************************************************
  * USB support (currently only works with D-cache off)
  ************************************************************/
-#define CONFIG_USB_OHCI
-#define CONFIG_USB_KEYBOARD
-#define CONFIG_USB_STORAGE
-#define CONFIG_DOS_PARTITION
+//#define CONFIG_USB_OHCI
+//#define CONFIG_USB_KEYBOARD
+//#define CONFIG_USB_STORAGE
+//#define CONFIG_DOS_PARTITION
 
 /************************************************************
  * RTC
  ************************************************************/
-#define CONFIG_RTC_S3C24X0
+//#define CONFIG_RTC_S3C24X0
 
 
 #define CONFIG_BAUDRATE		115200
@@ -93,10 +100,10 @@
 /*
  * BOOTP options
  */
-#define CONFIG_BOOTP_BOOTFILESIZE
-#define CONFIG_BOOTP_BOOTPATH
-#define CONFIG_BOOTP_GATEWAY
-#define CONFIG_BOOTP_HOSTNAME
+//#define CONFIG_BOOTP_BOOTFILESIZE
+//#define CONFIG_BOOTP_BOOTPATH
+//#define CONFIG_BOOTP_GATEWAY
+//#define CONFIG_BOOTP_HOSTNAME
 
 /*
  * Command line configuration.
@@ -105,13 +112,13 @@
 
 #define CONFIG_CMD_BSP
 #define CONFIG_CMD_CACHE
-#define CONFIG_CMD_DATE
+//#define CONFIG_CMD_DATE
 #define CONFIG_CMD_DHCP
 #define CONFIG_CMD_ELF
 #define CONFIG_CMD_NAND
 #define CONFIG_CMD_PING
 #define CONFIG_CMD_REGINFO
-#define CONFIG_CMD_USB
+//#define CONFIG_CMD_USB
 
 #define CONFIG_SYS_HUSH_PARSER
 #define CONFIG_SYS_PROMPT_HUSH_PS2	"> "
@@ -160,6 +167,9 @@
 
 #define CONFIG_SYS_HZ			1000
 
+#define CONFIG_BOOTCOMMAND	"nand read 30000000 kernel;bootm 30000000"
+#define CONFIG_BOOTARGS		"console=ttySAC0 root=/dev/mtdblock3"
+
 /* valid baudrates */
 #define CONFIG_SYS_BAUDRATE_TABLE	{ 9600, 19200, 38400, 57600, 115200 }
 
@@ -204,7 +214,7 @@
 #define CONFIG_SYS_FLASH_BANKS_LIST     { CONFIG_SYS_FLASH_BASE }
 #define CONFIG_SYS_MAX_FLASH_SECT	(64)
 
-#define CONFIG_ENV_ADDR			(CONFIG_SYS_FLASH_BASE + 0x070000)
+#define CONFIG_ENV_ADDR			(CONFIG_SYS_FLASH_BASE + 0x040000)
 #define CONFIG_ENV_IS_IN_FLASH
 #define CONFIG_ENV_SIZE			0x10000
 /* allow to overwrite serial and ethaddr */
@@ -215,7 +225,7 @@
  */
 #define CONFIG_SYS_MALLOC_LEN	(4 * 1024 * 1024)
 
-#define CONFIG_SYS_MONITOR_LEN	(448 * 1024)
+#define CONFIG_SYS_MONITOR_LEN	(256 * 1024)
 #define CONFIG_SYS_MONITOR_BASE	CONFIG_SYS_FLASH_BASE
 
 /*
@@ -232,6 +242,7 @@
 /*
  * File system
  */
+#if 0
 #define CONFIG_CMD_FAT
 #define CONFIG_CMD_EXT2
 #define CONFIG_CMD_UBI
@@ -242,6 +253,7 @@
 //#define CONFIG_YAFFS2
 #define CONFIG_RBTREE
 
+#endif
 /* additions for new relocation code, must be added to all boards */
 #define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM_1
 #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
