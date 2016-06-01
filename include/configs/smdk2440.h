@@ -79,7 +79,7 @@
 #define MTDIDS_DEFAULT			"nand0=tq2440-0"
 #define MTDPARTS_DEFAULT		"mtdparts=tq2440-0:256k(uboot)," \
 								"128k(params),"\
-								"2m(kernel),"\
+								"4m(kernel),"\
 								"-(rootfs)"
 /************************************************************
  * USB support (currently only works with D-cache off)
@@ -214,9 +214,13 @@
 #define CONFIG_SYS_FLASH_BANKS_LIST     { CONFIG_SYS_FLASH_BASE }
 #define CONFIG_SYS_MAX_FLASH_SECT	(64)
 
-#define CONFIG_ENV_ADDR			(CONFIG_SYS_FLASH_BASE + 0x040000)
-#define CONFIG_ENV_IS_IN_FLASH
-#define CONFIG_ENV_SIZE			0x10000
+//#define CONFIG_ENV_ADDR			(CONFIG_SYS_FLASH_BASE + 0x040000)
+//#define CONFIG_ENV_IS_IN_FLASH
+//#define CONFIG_ENV_SIZE			0x20000
+
+#define CONFIG_ENV_IS_IN_NAND
+#define CONFIG_ENV_OFFSET			0x040000
+#define CONFIG_ENV_SIZE				0x20000
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
 /*
