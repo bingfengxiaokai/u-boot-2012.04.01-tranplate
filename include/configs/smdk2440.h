@@ -79,7 +79,7 @@
 #define MTDIDS_DEFAULT			"nand0=tq2440-0"
 #define MTDPARTS_DEFAULT		"mtdparts=tq2440-0:256k(uboot)," \
 								"128k(params),"\
-								"4m(kernel),"\
+								"3m(kernel),"\
 								"-(rootfs)"
 /************************************************************
  * USB support (currently only works with D-cache off)
@@ -246,6 +246,7 @@
 /*
  * File system
  */
+#define CONFIG_CMD_NAND_YAFFS
 #if 0
 #define CONFIG_CMD_FAT
 #define CONFIG_CMD_EXT2
